@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Marry Me ❤️</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff4d6d,#ff758f,#ff9eb5,#ffd6e0);
+background-size:400% 400%;
+animation:bgmove 8s ease infinite;
+}
+
+@keyframes bgmove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+text-align:center;
+z-index:10;
+}
+
+h1{
+font-size:50px;
+color:white;
+text-shadow:0 0 10px white,
+0 0 20px pink,
+0 0 40px red;
+animation:pulse 1.5s infinite;
+margin-bottom:25px;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.1);
+}
+}
+
+button{
+padding:15px 35px;
+font-size:22px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+margin:10px;
+transition:.3s;
+}
+
+#yesBtn{
+background:#00c853;
+color:white;
+box-shadow:0 0 20px #00ff6a;
+}
+
+#noBtn{
+background:#ff1744;
+color:white;
+position:absolute;
+}
+
+#final{
+display:none;
+font-size:42px;
+color:white;
+text-shadow:0 0 20px gold;
+animation:zoom 1s infinite;
+}
+
+@keyframes zoom{
+50%{
+transform:scale(1.1);
+}
+}
+
+img{
+display:none;
+width:320px;
+margin-top:20px;
+border-radius:20px;
+box-shadow:0 0 25px white;
+}
+
+.heart{
+position:absolute;
+font-size:30px;
+animation:float linear forwards;
+}
+
+@keyframes float{
+from{
+transform:translateY(100vh);
+opacity:1;
+}
+to{
+transform:translateY(-100px);
+opacity:0;
+}
+}
+
+.confetti{
+position:absolute;
+font-size:28px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+from{
+transform:translateY(-50px);
+}
+to{
+transform:translateY(100vh) rotate(720deg);
+}
+}
+
+.tap{
+position:absolute;
+top:20px;
+color:white;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tap">
+Tap anywhere to start music ❤️
+</div>
+
+<div class="container">
+
+<h1 id="title">
+Will You Marry Me? 💍❤️
+</h1>
+
+<button id="yesBtn">YES ❤️</button>
+
+<button id="noBtn">NO 😅</button>
+
+<div id="final">
+YAYYYY ❤️💍 <br>
+Forever Starts Here 💕
+</div>
+
+<!-- Replace with your own image -->
+<img id="pic"
+src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600">
+
+</div>
+
+<audio id="music" loop>
+<source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const music=document.getElementById("music");
+
+// Start music on first click
+document.body.addEventListener("click",function(){
+
+music.play();
+
+document.querySelector(".tap").style.display="none";
+
+},{once:true});
+
+
+const yes=document.getElementById("yesBtn");
+const no=document.getElementById("noBtn");
+
+let size=22;
+
+
+// Floating hearts
+setInterval(()=>{
+
+let h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML=
+["💖","💕","❤️","💗"][Math.floor(Math.random()*4)];
+
+h.style.left=Math.random()*100+"vw";
+
+h.style.animationDuration=
+(Math.random()*3+2)+"s";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{
+h.remove();
+},5000);
+
+},300);
+
+
+// No button runs away
+no.addEventListener("mouseover",()=>{
+
+let x=Math.random()*(window.innerWidth-100);
+
+let y=Math.random()*(window.innerHeight-100);
+
+no.style.left=x+"px";
+
+no.style.top=y+"px";
+
+
+let maxSize=window.innerWidth/12;
+
+if(size<maxSize){
+
+size+=6;
+
+yes.style.fontSize=size+"px";
+
+yes.style.padding=
+(size/2)+"px "+size+"px";
+
+}
+
+});
+
+
+// Yes clicked
+yes.addEventListener("click",()=>{
+
+title.style.display="none";
+
+yes.style.display="none";
+
+no.style.display="none";
+
+final.style.display="block";
+
+pic.style.display="block";
+
+
+// Confetti
+for(let i=0;i<150;i++){
+
+let c=document.createElement("div");
+
+c.className="confetti";
+
+c.innerHTML=
+["🎉","✨","💖","💕","❤️"]
+[Math.floor(Math.random()*5)];
+
+c.style.left=Math.random()*100+"vw";
+
+c.style.animationDuration=
+(Math.random()*3+2)+"s";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+c.remove();
+},5000);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
